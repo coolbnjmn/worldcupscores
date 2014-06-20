@@ -1,0 +1,25 @@
+{
+  "name": "worldcupscores",
+  "version": "0.0.0",
+  "description": "World Cup Scores App for iPhone using Kimonolabs web scraping API",
+  "main": "index.js",
+  "engines" : {
+    "node" : "0.10.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:worldcupscores.git"
+  },
+  "keywords": [
+    "World",
+    "Cup",
+    "Scores",
+    "iOS",
+    "Kimono"
+  ],
+  "author": "Benjamin Hendricks",
+  "license": "BSD"
+}
