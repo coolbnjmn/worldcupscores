@@ -45,8 +45,35 @@ request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b728823
 									jsonObj[k].awayTeamPlayers = playersObj;
 								}
 							}
+							for(var k = 0; k < playersObj.length; k++) {
+								request("http://worldcup.kimonolabs.com/api/clubs/"+playersObj[k].clubId+"?apikey=ab36d3439df5c4b72882313aff7e15ff", 
+									function(errclubs, responseclubs, bodyclubs) {
+										var clubObj;
+										try {
+											clubObj = JSON.parse(bodyclubs);
+										} catch(e) {
+											clubObj = null;
+										}
+										if(clubObj != null) {
+											for(var l = 0; l < playersObj.length; l++) {
+												if(playersObj[l].clubId == clubObj.id) {
+													playersObj[l].clubInfo = clubObj;
+												}
+											}
+											for(var l = 0; l < jsonObj.length; l++) {
+												for(var m = 0; m < playersObj.length; m++) {
+													if(playersObj[m].teamId == jsonObj[l].homeTeamId.id) {
+														jsonObj[l].homeTeamPlayers = playersObj;
+													} else if(playersObj[m].teamId == jsonObj[l].awayTeamId.id) {
+														jsonObj[l].awayTeamPlayers = playersObj;
+													}
+												}
+											}
+										}
+										global_scores = JSON.stringify(jsonObj);									
+									});
+							}
 						}
-						global_scores = JSON.stringify(jsonObj);
 				});
 			}
 			
@@ -90,8 +117,35 @@ schedule.scheduleJob(rule, function() {
 										jsonObj[k].awayTeamPlayers = playersObj;
 									}
 								}
+								for(var k = 0; k < playersObj.length; k++) {
+									request("http://worldcup.kimonolabs.com/api/clubs/"+playersObj[k].clubId+"?apikey=ab36d3439df5c4b72882313aff7e15ff", 
+										function(errclubs, responseclubs, bodyclubs) {
+											var clubObj;
+											try {
+												clubObj = JSON.parse(bodyclubs);
+											} catch(e) {
+												clubObj = null;
+											}
+											if(clubObj != null) {
+												for(var l = 0; l < playersObj.length; l++) {
+													if(playersObj[l].clubId == clubObj.id) {
+														playersObj[l].clubInfo = clubObj;
+													}
+												}
+												for(var l = 0; l < jsonObj.length; l++) {
+													for(var m = 0; m < playersObj.length; m++) {
+														if(playersObj[m].teamId == jsonObj[l].homeTeamId.id) {
+															jsonObj[l].homeTeamPlayers = playersObj;
+														} else if(playersObj[m].teamId == jsonObj[l].awayTeamId.id) {
+															jsonObj[l].awayTeamPlayers = playersObj;
+														}
+													}
+												}
+											}
+											global_scores = JSON.stringify(jsonObj);									
+										});
+								}
 							}
-							global_scores = JSON.stringify(jsonObj);
 					});
 				}
 
