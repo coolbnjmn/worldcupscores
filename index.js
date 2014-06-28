@@ -4,7 +4,6 @@ var app = express();
 var request = require("request");
 
 var schedule = require("node-schedule");
-
 var global_scores;
 var rule = new schedule.RecurrenceRule();
 rule.minute = new schedule.Range(0,59, 1);
