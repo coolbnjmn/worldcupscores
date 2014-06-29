@@ -8,7 +8,7 @@ var global_scores;
 var rule = new schedule.RecurrenceRule();
 rule.minute = new schedule.Range(0,59, 1);
 
-request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b72882313aff7e15ff", 
+request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b72882313aff7e15ff&sort=startTime", 
 	function(err, response, body) {
 	var jsonObj = JSON.parse(body);
 	for(var i = 0; i < jsonObj.length; i++) {
@@ -69,6 +69,7 @@ request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b728823
 												}
 											}
 										}
+										jsonObj = jsonObj.slice(-25);
 										global_scores = JSON.stringify(jsonObj);									
 									});
 							}
@@ -80,7 +81,7 @@ request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b728823
 	}
 });
 schedule.scheduleJob(rule, function() {
-	request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b72882313aff7e15ff", 
+	request("http://worldcup.kimonolabs.com/api/matches?apikey=ab36d3439df5c4b72882313aff7e15ff&sort=startTime", 
 		function(err, response, body) {
 		var jsonObj = JSON.parse(body);
 		for(var i = 0; i < jsonObj.length; i++) {
@@ -141,6 +142,7 @@ schedule.scheduleJob(rule, function() {
 													}
 												}
 											}
+											jsonObj = jsonObj.slice(-25);
 											global_scores = JSON.stringify(jsonObj);									
 										});
 								}
